@@ -1,2 +1,2 @@
-project = "practice-terraform-aws"
+project     = "practice-terraform-aws"
 environment = "development"
