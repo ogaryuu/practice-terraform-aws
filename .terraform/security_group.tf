@@ -49,3 +49,16 @@ resource "aws_security_group_rule" "web_out_tcp3000" {
     "0.0.0.0/0"
   ]
 }
+
+# app server security group
+resource "aws_security_group" "app_sg" {
+  name        = "${var.project}-${var.environment}-app-sg"
+  description = "application server security group"
+  vpc_id      = aws_vpc.vpc
+
+  tags = {
+    Name        = "${var.project}-${var.environment}-app-sg"
+    Environment = var.environment
+    Project     = var.project
+  }
+}
