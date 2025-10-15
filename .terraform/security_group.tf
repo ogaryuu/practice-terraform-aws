@@ -5,7 +5,7 @@
 resource "aws_security_group" "web_sg" {
   name        = "${var.project}-${var.environment}-web-sg"
   description = "web front role security group"
-  vpc_id      = aws_vpc.vpc
+  vpc_id      = aws_vpc.vpc.id
 
   tags = {
     Name        = "${var.project}-${var.environment}-web-sg"
@@ -15,7 +15,7 @@ resource "aws_security_group" "web_sg" {
 }
 
 resource "aws_security_group_rule" "web_in_http" {
-  security_group_id = aws_security_group.example.id
+  security_group_id = aws_security_group.web_sg.id
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 80
@@ -27,7 +27,7 @@ resource "aws_security_group_rule" "web_in_http" {
 }
 
 resource "aws_security_group_rule" "web_in_https" {
-  security_group_id = aws_security_group.example.id
+  security_group_id = aws_security_group.web_sg.id
   type              = "ingress"
   protocol          = "tcp"
   from_port         = 443
@@ -39,7 +39,7 @@ resource "aws_security_group_rule" "web_in_https" {
 }
 
 resource "aws_security_group_rule" "web_out_tcp3000" {
-  security_group_id        = aws_security_group.example.id
+  security_group_id        = aws_security_group.web_sg.id
   type                     = "egress"
   protocol                 = "tcp"
   from_port                = 3000
@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "web_out_tcp3000" {
 resource "aws_security_group" "app_sg" {
   name        = "${var.project}-${var.environment}-app-sg"
   description = "application server security group"
-  vpc_id      = aws_vpc.vpc
+  vpc_id      = aws_vpc.vpc.id
 
   tags = {
     Name        = "${var.project}-${var.environment}-app-sg"
@@ -64,7 +64,7 @@ resource "aws_security_group" "app_sg" {
 resource "aws_security_group" "opmng_sg" {
   name        = "${var.project}-${var.environment}-opmng-sg"
   description = "operation and management security group"
-  vpc_id      = aws_vpc.vpc
+  vpc_id      = aws_vpc.vpc.id
 
   tags = {
     Name        = "${var.project}-${var.environment}-opmng-sg"
@@ -98,7 +98,7 @@ resource "aws_security_group_rule" "opmng_in_tcp3000" {
 }
 
 resource "aws_security_group_rule" "opmng_out_http" {
-  security_group_id = aws_security_group.example.id
+  security_group_id = aws_security_group.opmng_sg.id
   type              = "egress"
   protocol          = "tcp"
   from_port         = 80
@@ -110,7 +110,7 @@ resource "aws_security_group_rule" "opmng_out_http" {
 }
 
 resource "aws_security_group_rule" "opmng_out_https" {
-  security_group_id = aws_security_group.example.id
+  security_group_id = aws_security_group.opmng_sg.id
   type              = "egress"
   protocol          = "tcp"
   from_port         = 443
@@ -125,7 +125,7 @@ resource "aws_security_group_rule" "opmng_out_https" {
 resource "aws_security_group" "db_sg" {
   name        = "${var.project}-${var.environment}-db-sg"
   description = "database role security group"
-  vpc_id      = aws_vpc.vpc
+  vpc_id      = aws_vpc.vpc.id
 
   tags = {
     Name        = "${var.project}-${var.environment}-db-sg"
