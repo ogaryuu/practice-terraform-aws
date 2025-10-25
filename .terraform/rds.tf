@@ -81,6 +81,9 @@ resource "aws_db_instance" "mysql_standalone" {
   maintenance_window         = "sun:05:00-sun:06:00"
   auto_minor_version_upgrade = false
 
+  deletion_protection = false
+  skip_final_snapshot = true
+
 
   tags = {
     Name        = "${var.project}-${var.environment}-mysql-standalone"
